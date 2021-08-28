@@ -1,18 +1,74 @@
-import './App.css';
-import Form from './component/Form';
-import React, { ImageBa } from 'react';
-import { BrowserRouter as Router, Route, Switch, useHistory, li } from 'react-router-dom';
-import Tasks from './component/Tasks';
-import Edit from './component/Edit';
-
+import "./App.css";
+import Form from "./form/Form";
+import "./css-reset.css";
+import React, { ImageBa } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useHistory,
+  li,
+} from "react-router-dom";
+import Tasks from "./tasks/Tasks";
+import Edit from "./component/Edit";
 
 function App() {
   //const [show,setshow]=useState({vis:true})
   // const [hide,sethide]=useState({vis:true})
-  const history = useHistory()
+  const history = useHistory();
   return (
     <div className="App">
-      <h1>THOR SYSTEM</h1>
+      <header>
+        <h1>Thor System</h1>
+        <div className="menu">
+          <div
+            className="menu-item"
+            onClick={() => {
+              history.push("/info");
+            }}
+          >
+            Show Information
+          </div>
+          <div
+            className="menu-item"
+            onClick={() => {
+              history.push("/formulaire");
+            }}
+          >
+            Add Information
+          </div>
+          <div
+            className="menu-item"
+            onClick={() => {
+              history.push("/");
+            }}
+          >
+            Home App
+          </div>
+        </div>
+      </header>
+      <div className="content">
+        <Route
+          exact
+          path="/formulaire"
+          component={() => {
+            return <Form />;
+          }}
+        ></Route>
+        <Route
+          exact
+          path="/info"
+          component={() => {
+            return <Tasks />;
+          }}
+        ></Route>
+        <Route
+          exact
+          path="/Edit/:id"
+          render={(props) => <Edit id={props.match.params.id} />}
+        />
+      </div>
+      {/* <h1>THOR SYSTEM</h1>
       <Route exact path="/formulaire" component={() => { return <Form /> }} ></Route>
       <Route exact path="/info" component={() => { return <Tasks /> }} ></Route>
       <Route exact path="/Edit/:id" render={(props)=> <Edit id={props.match.params.id}/>} />
@@ -43,7 +99,7 @@ function App() {
         }
 
         }>home APP</button>
-      </div>
+      </div> */}
     </div>
   );
 }
